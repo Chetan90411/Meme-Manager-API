@@ -1,0 +1,16 @@
+Step 1 :I have intialized the npm repository using npm init -y;
+Step 2 :Install express and basic setup
+Step 3 :We have run our mongodb server at port 27017 using mongod --dbpath=C:/data/
+Step 4 :Create a model User.js and file mongoose.js for connecting to the mongodb server started at step 3
+Step 5 :Create a script dev : nodemon /src/index.js  
+Step 6 :Create a router for User 
+Step 7 :Create a router for Meme
+Step 8 :Hashing the Password
+Step 9 :Added route handler for login ans also set a method on userSchema called findByCredentials() 
+Step 10:Generated an authToken by setting up an instance method using jwt and also pushes that token on the 
+        tokens array.
+Step 11:Pass the token using header and then set up an auth Middleware which is going to verify that the user 
+        is signed in or not.         
+Step 12:Now automate using writing scripts
+Step 13:Write a script for logout path        
+Step 14:Added a relationship between user and the memes schema 
