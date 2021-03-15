@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 
-const Meme=mongoose.model('Meme',{
+const memeSchema=new mongoose.Schema({
     description:{
         type:String,
         trim:true,
@@ -16,6 +16,10 @@ const Meme=mongoose.model('Meme',{
         required:true,
         ref:'User'
     }
+},{
+    timestamps:true
 });
+
+const Meme=mongoose.model('Meme',memeSchema);
 
 module.exports=Meme;

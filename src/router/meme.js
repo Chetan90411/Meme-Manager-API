@@ -17,10 +17,18 @@ router.post('/memes',auth,async (req,res)=>{
 
 })
 
+// GET /memes?limit=10
 router.get('/memes', auth,async (req,res)=>{
 
     try {
-        await req.user.populate('memes').execPopulate();
+        await req.user.populate({
+            path:'memes',
+            options:{
+                limit:parseInt(req.query.limit),
+                skip:parseInt(req.query.skip)
+            }
+           
+        }).execPopulate();
         res.status(200).send(req.user.memes);
     } catch (error) {
         res.status(500).send(error);
