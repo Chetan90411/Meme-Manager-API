@@ -101,14 +101,41 @@ const upload=multer({
       }
       cb(new Error('Please upload an image file'));
   }
-})
+});
 
 router.post('/users/me/avatar', auth, upload.single('avatar'),async (req,res)=>{
+  if(!req.file){
+   return  res.send({error:'Please upload an image'});
+  }
   req.user.avatar=await sharp(req.file.buffer).resize(250,250).png().toBuffer();
   await req.user.save();
   res.send();
 },(error,req,res,next)=>{
   res.status(400).send({error:error.message});
-})
+});
 
+router.delete('/users/me/avatar', auth, async(req,res)=>{
+  if(req.user.avatar){
+    req.user.avatar=undefined;
+  }
+  await req.user.save();
+  res.send();
+});
+
+router.get('/users/:id/avatar',async (req,res)=>{
+  const _id=req.params.id;
+  try {
+    const user=await User.findById(_id);
+    if(!user){
+      throw new Error('No such user with this id');
+    }
+    if(!user.avatar){
+      throw new Error('User does not have a avatar');
+    }
+    res.set('Content-Type','image/png');
+    res.send(user.avatar);
+  } catch (error) {
+    
+  }
+})
 module.exports = router;
