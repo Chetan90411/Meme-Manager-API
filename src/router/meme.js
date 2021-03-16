@@ -5,7 +5,6 @@ const Meme=require('../model/Meme');
 const auth=require('../middleware/auth');
 
 router.post('/memes',auth,async (req,res)=>{
-    
     const meme=new Meme({...req.body,owner:req.user._id});
     try {
         await meme.save();
@@ -13,8 +12,6 @@ router.post('/memes',auth,async (req,res)=>{
     } catch (error) {
         res.status(500).send(error);
     }
-
-
 })
 
 // GET /memes?limit=10

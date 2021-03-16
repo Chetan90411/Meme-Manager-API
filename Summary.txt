@@ -14,3 +14,5 @@ Step 11:Pass the token using header and then set up an auth Middleware which is 
 Step 12:Now automate using writing scripts
 Step 13:Write a script for logout path        
 Step 14:Added a relationship between user and the memes schema 
+Step 15:Added Pagination 
+Step 16:Added Route Handler For Avatar for User

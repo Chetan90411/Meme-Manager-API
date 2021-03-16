@@ -37,7 +37,7 @@ router.post('/users/logout',auth,async (req,res)=>{
           })
         
         await user.save();
-        res.send(user);
+        res.send(user.getPublicProfile());
   } catch (error) {
     res.send(error);
   }
@@ -55,7 +55,7 @@ router.post('/users/logoutAll',auth,async (req,res)=>{
 });
 
 router.get("/users/me", auth,async (req, res) => {
-  res.send(req.user);
+  res.send(req.user.getPublicProfile());
 });
 
 router.delete("/users/me", auth,async (req, res) => {
