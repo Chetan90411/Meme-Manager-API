@@ -8,7 +8,7 @@ const auth=async (req,res,next)=>{
         const token=req.headers.authorization.replace('Bearer ','');
         
         // Finding whether the token supplied is valid or not
-        const decoded=jwt.verify(token, 'secretKey');
+        const decoded=jwt.verify(token, process.env.secretKey);
 
         // If token is valid then finding the user who have that token
         const user=await User.findById(decoded._id);

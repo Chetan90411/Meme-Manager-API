@@ -1,2 +1,3 @@
 # Ignore the folders
 node_modules/
+config/

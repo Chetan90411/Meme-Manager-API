@@ -5,6 +5,7 @@ const sharp=require('sharp');
 
 const User = require("../model/User");
 const auth=require('../middleware/auth');
+const {sendWelcomeMail,sendCancellationMail}=require('../emails/account');
 
 
 router.post("/users", async (req, res) =>  {
@@ -12,6 +13,7 @@ router.post("/users", async (req, res) =>  {
   try {
     await user.save();
     const token=await user.generateAuthToken();
+    sendWelcomeMail(user.email, user.name);
     res.status(201).send({user:user.getPublicProfile(),token});
   } catch (error) {
     res.status(400).send(error);
@@ -59,11 +61,13 @@ router.get("/users/me", auth,async (req, res) => {
 });
 
 router.delete("/users/me", auth,async (req, res) => {
+  console.log(req.user);
   try {
       await req.user.remove();
+      sendCancellationMail(req.user.email, req.user.name);
       res.send(req.user.getPublicProfile());
   } catch (error) {
-    res.status(500).send(error);
+    res.status(500).send({error:error});
   }
 });
 
