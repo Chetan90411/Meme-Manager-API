@@ -1,4 +1,4 @@
-<h1 class="center">Meme API</h1>
+<h1 align="center">Meme API</h1>
 
 <p>An API which you can use in your project to create a Meme Page</p>
 
