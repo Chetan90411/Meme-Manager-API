@@ -12,3 +12,28 @@ This is a full featured Meme Management REST API back-end built with Node.js and
     <li>Added Email Support when a user enters the database for the first time and when delete his account</li>
 </ul>
 
+>User Routes : 
+
+| Methods | Endpoint          | Access | Description                      | 
+|---------|-------------------|--------|----------------------------------|
+|   POST  |  /users           | Public | Creating new user                |
+|   POST  |  /users/login     | Private| Logging a user                   |
+|   POST  |  /users/logout    | Private| Logging out user current session |
+|   POST  |  /users/logoutAll | Private| Logging out user of all sessions |
+|   GET   |  /users/me        | Private| Read user public information     |
+|   DELETE|  /users/me        | Private| Deleting user profile            |
+|   PATCH |  /users/me        | Private| Updating user profile            |
+|   POST  |  /users/me/avatar | Private| Uploading profile Image          |
+|   DELETE|  /users/me/avatar | Private| Deleting profile Image           |
+|   GET   |  /users/:id/avatar | Private| Get  profile image               |
+
+
+>Meme Routes: 
+
+| Methods | Endpoint          | Access | Description                            | 
+|---------|-------------------|--------|----------------------------------------|
+|   POST  |  /memes           | Private| Creating a new meme                    |
+|   GET   |  /memes           | Private| Get memes of the current user          |
+|   GET   |  /memes/:id       | Private| Get a particular meme with given id    |
+|   DELETE|  /memes/:id       | Private| Delete meme with id                    |
+|   PATCH |  /memes/:id       | Private| Update meme with given id              |
