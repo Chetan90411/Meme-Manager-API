@@ -47,15 +47,12 @@ This is a full featured Meme Management REST API back-end built with Node.js and
 <h4>How to Use the API</h4>
 Insert the following lines in dev.env file in the config folder, replacing all content with your own information:
 
-
+```
 PORT='port number'
-<br/>
 sendgrid_API_KEY='api key'
-<br/>
-secretKey='a secret key for generating JSON Web 
-Token(JWT)'
-<br/>
+secretKey='a secret key for generating JSON Web Token(JWT)'
 mongo_URL='mongodb connection string'
+```
 
 
 <ul>
