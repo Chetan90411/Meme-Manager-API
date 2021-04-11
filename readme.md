@@ -37,3 +37,18 @@ This is a full featured Meme Management REST API back-end built with Node.js and
 |   GET   |  /memes/:id       | Private| Get a particular meme with given id    |
 |   DELETE|  /memes/:id       | Private| Delete meme with id                    |
 |   PATCH |  /memes/:id       | Private| Update meme with given id              |
+
+
+<h6>How to Use the API</h6>
+Step 1 :  Insert the following lines in dev.env file in the config folder, replacing all <content> with your own information:
+
+```
+PORT=<port number>
+sendgrid_API_KEY=<api key>
+secretKey=<a secret key for generating JSON Web Token(JWT)>
+mongo_URL=<mongodb connection string>
+```
+
+Step 2 : Clone the project and run npm install
+Step 3 : Run your mongodb server 
+Step 4 : (npm run dev) in terminal 
