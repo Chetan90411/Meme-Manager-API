@@ -49,8 +49,12 @@ Insert the following lines in dev.env file in the config folder, replacing all c
 
 
 PORT='port number'
+<br/>
 sendgrid_API_KEY='api key'
-secretKey='a secret key for generating JSON Web Token(JWT)'
+<br/>
+secretKey='a secret key for generating JSON Web 
+Token(JWT)'
+<br/>
 mongo_URL='mongodb connection string'
 
 
