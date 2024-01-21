@@ -1,5 +1,6 @@
-import { verify } from "jsonwebtoken";
-import User from "../model/User";
+import pkg from "jsonwebtoken";
+const { verify } = pkg;
+import User from "../model/User.js";
 
 const auth = async (req, res, next) => {
   try {

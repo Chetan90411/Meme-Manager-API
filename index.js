@@ -1,12 +1,14 @@
 import express, { json } from "express";
 import jwt from "jsonwebtoken";
 
-import "./src/db/mongoose";
-import userRouter from "./src/router/user";
-import memeRouter from "./src/router/meme";
+import { connectDB } from "./src/db/mongoose.js";
+import userRouter from "./src/router/user.js";
+import memeRouter from "./src/router/meme.js";
 
 const app = express();
 const port = process.env.PORT;
+
+connectDB();
 
 app.use(json());
 app.use(userRouter);

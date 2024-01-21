@@ -1,8 +1,9 @@
 import { Router } from "express";
 const router = Router();
 
-import Meme, { findOne, findOneAndDelete } from "../model/Meme";
-import auth from "../middleware/auth";
+import Meme from "../model/Meme.js";
+const { findOne, findOneAndDelete } = Meme;
+import auth from "../middleware/auth.js";
 
 router.post("/memes", async (req, res) => {
   const meme = new Meme({ ...req.body, owner: req.user._id });

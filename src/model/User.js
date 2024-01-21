@@ -1,12 +1,16 @@
-import { Schema, model } from "mongoose";
-import { isEmail } from "validator";
+import pkg from "mongoose";
+const { Schema, model } = pkg;
+import pkg3 from "validator";
+const { isEmail } = pkg3;
 
-import { hash, compare } from "bcryptjs";
+import pkg2 from "bcryptjs";
+const { hash, compare } = pkg2;
 const saltRounds = 8;
 
-import { sign } from "jsonwebtoken";
+import pkg4 from "jsonwebtoken";
+const { sign } = pkg4;
 
-import Meme from "./Meme";
+import Meme from "./Meme.js";
 
 const userSchema = new Schema(
   {

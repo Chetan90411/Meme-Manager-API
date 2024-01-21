@@ -1,6 +1,11 @@
-import { connect } from "mongoose";
+import pkg from "mongoose";
+const { connect } = pkg;
 
-connect(process.env.mongo_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+function connectDB() {
+  connect(process.env.mongo_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+}
+
+export { connectDB };

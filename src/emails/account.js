@@ -1,4 +1,5 @@
-import { setApiKey, send } from "@sendgrid/mail";
+import pkg from "@sendgrid/mail";
+const { setApiKey, send } = pkg;
 
 setApiKey(process.env.sendgrid_API_KEY);
 

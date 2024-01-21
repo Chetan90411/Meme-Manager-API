@@ -3,16 +3,17 @@ const router = new Router();
 import multer from "multer";
 import sharp from "sharp";
 
-import User, { findByCredentials, findById } from "../model/User";
-import auth from "../middleware/auth";
-import { sendWelcomeMail, sendCancellationMail } from "../emails/account";
+import User from "../model/User.js";
+const { findByCredentials, findById } = User;
+import auth from "../middleware/auth.js";
+// import { sendWelcomeMail, sendCancellationMail } from "../emails/account.js";
 
 router.post("/users", async (req, res) => {
   const user = new User(req.body);
   try {
     await user.save();
     const token = await user.generateAuthToken();
-    sendWelcomeMail(user.email, user.name);
+    // sendWelcomeMail(user.email, user.name);
     res.status(201).send({ user: user.getPublicProfile(), token });
   } catch (error) {
     res.status(400).send(error);
@@ -63,7 +64,7 @@ router.delete("/users/me", auth, async (req, res) => {
   console.log(req.user);
   try {
     await req.user.remove();
-    sendCancellationMail(req.user.email, req.user.name);
+    // sendCancellationMail(req.user.email, req.user.name);
     res.send(req.user.getPublicProfile());
   } catch (error) {
     res.status(500).send({ error: error });
@@ -150,6 +151,8 @@ router.get("/users/:id/avatar", async (req, res) => {
     }
     res.set("Content-Type", "image/png");
     res.send(user.avatar);
-  } catch (error) {}
+  } catch (error) {
+    res.status(404).send(error);
+  }
 });
 export default router;
