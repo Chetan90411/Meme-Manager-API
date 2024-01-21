@@ -22,6 +22,7 @@ router.get("/memes", auth, async (req, res) => {
     await req.user
       .populate({
         path: "memes",
+        match: { $text: { $search: search } },
         options: {
           limit: parseInt(req.query.limit),
           skip: parseInt(req.query.skip),
