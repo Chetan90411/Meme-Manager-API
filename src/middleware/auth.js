@@ -1,33 +1,32 @@
-const jwt=require('jsonwebtoken');
-const User=require('../model/User');
+import { verify } from "jsonwebtoken";
+import User from "../model/User";
 
-const auth=async (req,res,next)=>{
-    try {
-        
-        // Taking token from the authorization header
-        const token=req.headers.authorization.replace('Bearer ','');
-        
-        // Finding whether the token supplied is valid or not
-        const decoded=jwt.verify(token, process.env.secretKey);
+const auth = async (req, res, next) => {
+  try {
+    // Taking token from the authorization header
+    const token = req.headers.authorization.replace("Bearer ", "");
 
-        // If token is valid then finding the user who have that token
-        const user=await User.findById(decoded._id);
+    // Finding whether the token supplied is valid or not
+    const decoded = verify(token, process.env.secretKey);
 
-        // Iterating over the tokens array of the user
-        const isValidToken=user.tokens.find(tokenObject=>{
-            return tokenObject.token===token;
-        });
-        
-        if(!isValidToken){
-            throw new Error('User dont have such token');
-        }
+    // If token is valid then finding the user who have that token
+    const user = await User.findById(decoded._id);
 
-        req.token=token;
-        req.user=user;
-        next();
-    } catch (error) {
-        res.status(401).send({error:'Please authenticate'});
+    // Iterating over the tokens array of the user
+    const isValidToken = user.tokens.find(tokenObject => {
+      return tokenObject.token === token;
+    });
+
+    if (!isValidToken) {
+      throw new Error("User dont have such token");
     }
-}
 
-module.exports=auth;
+    req.token = token;
+    req.user = user;
+    next();
+  } catch (error) {
+    res.status(401).send({ error: "Please authenticate" });
+  }
+};
+
+export default auth;

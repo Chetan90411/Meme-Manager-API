@@ -1,4 +1,6 @@
-const mongoose=require('mongoose');
+import { connect } from "mongoose";
 
-mongoose.connect( process.env.mongo_URL, {useNewUrlParser: true, useUnifiedTopology: true});
-
+connect(process.env.mongo_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
