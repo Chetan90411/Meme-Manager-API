@@ -15,7 +15,8 @@ const memeSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         required:true,
         ref:'User'
-    }
+    },
+    tag: [String]
 },{
     timestamps:true
 });
