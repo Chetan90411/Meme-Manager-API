@@ -14,6 +14,10 @@ app.use(json());
 app.use(userRouter);
 app.use(memeRouter);
 
+app.get("/", (req, res) => {
+  res.send("Hello");
+});
+
 app.listen(port, () => {
   console.log("Server started at port", port);
 });

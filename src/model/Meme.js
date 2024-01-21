@@ -6,9 +6,8 @@ const memeSchema = new Schema(
     description: {
       type: String,
       trim: true,
-      required: true,
     },
-    imgLink: {
+    url: {
       type: String,
       trim: true,
       required: true,

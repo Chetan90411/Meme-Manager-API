@@ -5,7 +5,7 @@ import Meme from "../model/Meme.js";
 const { findOne, findOneAndDelete } = Meme;
 import auth from "../middleware/auth.js";
 
-router.post("/memes", async (req, res) => {
+router.post("/memes", auth, async (req, res) => {
   const meme = new Meme({ ...req.body, owner: req.user._id });
   try {
     await meme.save();
@@ -15,8 +15,9 @@ router.post("/memes", async (req, res) => {
   }
 });
 
-// GET /memes?limit=10
-router.get("/memes", async (req, res) => {
+// GET /memes?limit=10&search=abc
+router.get("/memes", auth, async (req, res) => {
+  const search = req.query.search;
   try {
     await req.user
       .populate({
@@ -33,7 +34,7 @@ router.get("/memes", async (req, res) => {
   }
 });
 
-router.get("/memes/:id", async (req, res) => {
+router.get("/memes/:id", auth, async (req, res) => {
   const _id = req.params.id;
   try {
     const meme = await findOne({ _id, owner: req.user._id });
@@ -46,7 +47,7 @@ router.get("/memes/:id", async (req, res) => {
   }
 });
 
-router.delete("/memes/:id", async (req, res) => {
+router.delete("/memes/:id", auth, async (req, res) => {
   const _id = req.params.id;
   try {
     const meme = await findOneAndDelete({ _id, owner: req.user._id });
@@ -59,7 +60,7 @@ router.delete("/memes/:id", async (req, res) => {
   }
 });
 
-router.patch("/memes/:id", async (req, res) => {
+router.patch("/memes/:id", auth, async (req, res) => {
   const allowedUpdates = ["description", "imgLink"];
   const updates = Object.keys(req.body);
 
