@@ -4,7 +4,7 @@ const router=express.Router();
 const Meme=require('../model/Meme');
 const auth=require('../middleware/auth');
 
-router.post('/memes',auth,async (req,res)=>{
+router.post('/memes',async (req,res)=>{
     
     const meme=new Meme({...req.body,owner:req.user._id});
     try {
@@ -18,7 +18,7 @@ router.post('/memes',auth,async (req,res)=>{
 })
 
 // GET /memes?limit=10
-router.get('/memes', auth,async (req,res)=>{
+router.get('/memes',async (req,res)=>{
 
     try {
         await req.user.populate({
@@ -36,7 +36,7 @@ router.get('/memes', auth,async (req,res)=>{
 
 }) ;
 
-router.get('/memes/:id', auth,async (req,res)=>{
+router.get('/memes/:id',async (req,res)=>{
     const _id=req.params.id;
     try {
         const meme=await Meme.findOne({_id,owner:req.user._id})
@@ -49,7 +49,7 @@ router.get('/memes/:id', auth,async (req,res)=>{
     }
 });
 
-router.delete('/memes/:id',auth,async (req,res)=>{
+router.delete('/memes/:id',async (req,res)=>{
     const _id=req.params.id;
     try {
         const meme=await Meme.findOneAndDelete({ _id, owner:req.user._id});
@@ -62,7 +62,7 @@ router.delete('/memes/:id',auth,async (req,res)=>{
     }
 });
 
-router.patch('/memes/:id', auth,async (req,res)=>{
+router.patch('/memes/:id',async (req,res)=>{
 
     const allowedUpdates=['description','imgLink'];
     const updates=Object.keys(req.body);
