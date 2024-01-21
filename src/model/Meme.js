@@ -24,6 +24,9 @@ const memeSchema = new Schema(
   }
 );
 
+// Create text indexes
+memeSchema.index({ description: "text", tag: "text" });
+
 const Meme = model("Meme", memeSchema);
 
 export default Meme;
