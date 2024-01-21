@@ -1,14 +1,14 @@
-import pkg from "mongoose";
-const { Schema, model } = pkg;
-import pkg3 from "validator";
-const { isEmail } = pkg3;
+import mongoosePkg from "mongoose";
+const { Schema, model } = mongoosePkg;
+import validatorPkg from "validator";
+const { isEmail } = validatorPkg;
 
-import pkg2 from "bcryptjs";
-const { hash, compare } = pkg2;
+import bcryptjsPkg from "bcryptjs";
+const { hash, compare } = bcryptjsPkg;
 const saltRounds = 8;
 
-import pkg4 from "jsonwebtoken";
-const { sign } = pkg4;
+import jsoonwebtokenPkg from "jsonwebtoken";
+const { sign } = jsoonwebtokenPkg;
 
 import Meme from "./Meme.js";
 
