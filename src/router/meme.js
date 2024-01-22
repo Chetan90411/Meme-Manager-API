@@ -15,20 +15,27 @@ router.post("/memes", auth, async (req, res) => {
   }
 });
 
-// GET /memes?limit=10&search=abc
+// GET /memes?limit=10 & skip=0 & search=
 router.get("/memes", auth, async (req, res) => {
   const search = req.query.search;
+  const limit = parseInt(req.query.limit ?? 10);
+  const skip = parseInt(req.query.skip || 0);
   try {
-    await req.user
-      .populate({
-        path: "memes",
-        match: { $text: { $search: search } },
-        options: {
-          limit: parseInt(req.query.limit),
-          skip: parseInt(req.query.skip),
-        },
-      })
-      .execPopulate();
+    if (search)
+      await req.user
+        .populate({
+          path: "memes",
+          match: { $text: { $search: search } },
+          options: { limit, skip },
+        })
+        .execPopulate();
+    else
+      await req.user
+        .populate({
+          path: "memes",
+          options: { limit, skip },
+        })
+        .execPopulate();
     res.status(200).send(req.user.memes);
   } catch (error) {
     res.status(500).send(error);
