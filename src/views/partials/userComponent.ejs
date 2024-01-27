@@ -1,0 +1,90 @@
+<!-- userComponent.ejs -->
+
+<div class="user-component">
+  <style>
+    #userName {
+      font-weight: bold;
+    }
+
+    #userEmail {
+      opacity: 0.8;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    #logoutButton {
+      background-color: #c2160a;
+      color: #fff;
+      border: none;
+      border-radius: 0.5em;
+      padding: 8px;
+    }
+  </style>
+  <span id="userName"></span>
+  <span id="userEmail"></span>
+  <button id="logoutButton" onclick="logout()">Logout</button>
+
+  <script>
+    async function fetchUser() {
+      try {
+        const token = localStorage.getItem("userToken");
+        if (!token) {
+          console.error("User token not found.");
+          return;
+        }
+
+        const response = await fetch("/users/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch user details");
+        }
+
+        const userData = await response.json();
+        renderUser(userData);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    function renderUser(user) {
+      document.getElementById("userName").textContent = user.name;
+      document.getElementById("userEmail").textContent = user.email;
+    }
+
+    // Function to handle logout
+    async function logout() {
+      try {
+        const token = localStorage.getItem("userToken");
+        if (!token) {
+          console.error("User token not found.");
+          return;
+        }
+
+        const response = await fetch("/users/logout", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Logout failed");
+        }
+
+        // Remove userToken from storage
+        localStorage.removeItem("userToken");
+
+        // You can redirect or perform additional actions after logout
+        console.log("Logout successful");
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    // Fetch user details when the component is loaded
+    document.addEventListener("DOMContentLoaded", fetchUser);
+  </script>
+</div>

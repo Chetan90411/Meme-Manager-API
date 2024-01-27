@@ -1,12 +1,11 @@
 import { Router } from "express";
-const router = Router();
-
 import Meme from "../model/Meme.js";
-const { findOne, findOneAndDelete } = Meme;
 import auth from "../middleware/auth.js";
 
+const router = Router();
 router.post("/memes", auth, async (req, res) => {
-  const meme = new Meme({ ...req.body, owner: req.user._id });
+  const { url, description, tags } = req.body;
+  const meme = new Meme({ url, description, tags, owner: req.user._id });
   try {
     await meme.save();
     res.status(200).send(meme);
@@ -45,7 +44,7 @@ router.get("/memes", auth, async (req, res) => {
 router.get("/memes/:id", auth, async (req, res) => {
   const _id = req.params.id;
   try {
-    const meme = await findOne({ _id, owner: req.user._id });
+    const meme = await Meme.findOne({ _id, owner: req.user._id });
     if (!meme) {
       return res.status(204).send();
     }
@@ -58,12 +57,13 @@ router.get("/memes/:id", auth, async (req, res) => {
 router.delete("/memes/:id", auth, async (req, res) => {
   const _id = req.params.id;
   try {
-    const meme = await findOneAndDelete({ _id, owner: req.user._id });
+    const meme = await Meme.findOneAndDelete({ _id, owner: req.user._id });
     if (!meme) {
       return res.status(404).send();
     }
     res.send(meme);
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 });
@@ -82,7 +82,7 @@ router.patch("/memes/:id", auth, async (req, res) => {
 
   const _id = req.params.id;
   try {
-    const meme = await findOne({ _id, owner: req.user._id });
+    const meme = await Meme.findOne({ _id, owner: req.user._id });
     if (!meme) {
       return res.status(400).send();
     }

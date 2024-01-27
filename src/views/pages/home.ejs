@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meme Manager</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="/styles/home.css">
+</head>
+
+<body>
+  <header>
+    <h1>Meme Manager</h1>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search...">
+      <button onclick="searchMemes()">Search</button>
+    </div>
+    <button onclick="openMemeFormModal()" class="add-meme-button">
+      <i class="fas fa-plus"></i>
+    </button>
+    <%- include('../partials/userComponent.ejs') %>
+  </header>
+
+  <section class="memes-grid" id="memesGrid">
+    <!-- Meme Cards will be dynamically added here -->
+  </section>
+
+
+
+  <!-- Include the meme form modal partial -->
+  <%- include('../partials/memeForm.ejs') %>
+
+    <script src="/scripts/home.js"></script>
+</body>
+
+</html>

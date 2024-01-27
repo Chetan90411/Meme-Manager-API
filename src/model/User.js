@@ -41,11 +41,6 @@ const userSchema = new Schema(
         }
       },
     },
-    age: {
-      type: Number,
-      min: 12,
-      required: true,
-    },
     tokens: [
       {
         token: {

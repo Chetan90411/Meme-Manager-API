@@ -1,15 +1,14 @@
 import { Router } from "express";
-const router = new Router();
 import multer from "multer";
 import sharp from "sharp";
-
 import User from "../model/User.js";
-const { findByCredentials, findById } = User;
 import auth from "../middleware/auth.js";
 // import { sendWelcomeMail, sendCancellationMail } from "../emails/account.js";
 
+const router = new Router();
 router.post("/users", async (req, res) => {
-  const user = new User(req.body);
+  const { name, email, password } = req.body;
+  const user = new User({ name, email, password, tokens: [] });
   try {
     await user.save();
     const token = await user.generateAuthToken();
@@ -21,9 +20,9 @@ router.post("/users", async (req, res) => {
 });
 
 router.post("/users/login", async (req, res) => {
-  const { email, password } = req.body;
   try {
-    const user = await findByCredentials(email, password);
+    const { email, password } = req.body;
+    const user = await User.findByCredentials(email, password);
     const token = await user.generateAuthToken();
     res.send({ user: user.getPublicProfile(), token });
   } catch (error) {
@@ -142,7 +141,7 @@ router.delete("/users/me/avatar", auth, async (req, res) => {
 router.get("/users/:id/avatar", async (req, res) => {
   const _id = req.params.id;
   try {
-    const user = await findById(_id);
+    const user = await User.findById(_id);
     if (!user) {
       throw new Error("No such user with this id");
     }
