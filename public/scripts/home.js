@@ -23,12 +23,12 @@ function renderMemes(memesData) {
 
     const detailsElement = document.createElement("div");
     detailsElement.classList.add("meme-details");
-    const tagString = meme.tag.join(", ");
-    detailsElement.innerHTML = tagString
-      ? `<p class="meme-tag">Tags: ${tagString}</p>`
-      : "" + meme.description
-      ? `<p class="meme-description"> ${meme.description}</p>`
-      : "";
+    const tagString = meme.tags.join(", ");
+    detailsElement.innerHTML =
+      (tagString ? `<p class="meme-tag">Tags: ${tagString}</p>` : "") +
+      (meme.description
+        ? `<p class="meme-description"> ${meme.description}</p>`
+        : "");
 
     const copyButton = document.createElement("button");
     copyButton.textContent = "Copy";

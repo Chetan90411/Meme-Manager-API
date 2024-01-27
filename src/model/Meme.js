@@ -17,7 +17,7 @@ const memeSchema = new Schema(
       required: true,
       ref: "User",
     },
-    tag: [String],
+    tags: [String],
   },
   {
     timestamps: true,
