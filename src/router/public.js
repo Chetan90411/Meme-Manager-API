@@ -2,7 +2,7 @@ import { Router } from "express";
 const router = new Router();
 
 router.get("/", (req, res) => {
-  res.send("Public Page");
+  res.redirect("/login");
 });
 
 router.get("/login", (req, res) => {
